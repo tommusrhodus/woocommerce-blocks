@@ -164,11 +164,7 @@ export const Edit = ( { className, attributes, setAttributes, clientId } ) => {
 					<BlockControls __experimentalShareWithChildBlocks>
 						{ ViewSwitcherComponent }
 					</BlockControls>
-					<CartBlockContext.Provider
-						value={ {
-							hasDarkControls,
-						} }
-					>
+
 						<CartProvider>
 							<InnerBlocks
 								allowedBlocks={ ALLOWED_BLOCKS }
@@ -176,7 +172,6 @@ export const Edit = ( { className, attributes, setAttributes, clientId } ) => {
 								templateLock={ false }
 							/>
 						</CartProvider>
-					</CartBlockContext.Provider>
 				</EditorProvider>
 			</BlockErrorBoundary>
 			<CartCheckoutCompatibilityNotice blockName="cart" />

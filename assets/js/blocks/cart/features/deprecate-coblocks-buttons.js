@@ -1,4 +1,8 @@
-import { getBlockType, registerBlockType, unregisterBlockType } from '@wordpress/blocks';
+import {
+	getBlockType,
+	registerBlockType,
+	unregisterBlockType,
+} from '@wordpress/blocks';
 import domReady from '@wordpress/dom-ready';
 
 /**

@@ -7,7 +7,9 @@ import tracksRecordEvent from './track-record-event';
  */
 export default () => ( {
 	id: 'wpcom-block-premium-content-stripe-connect',
-	selector: '.wp-block[data-type="premium-content/container"] .stripe-nudge__button',
+	selector:
+		'.wp-block[data-type="premium-content/container"] .stripe-nudge__button',
 	type: 'click',
-	handler: () => tracksRecordEvent( 'wpcom_block_premium_content_stripe_connect_click' ),
+	handler: () =>
+		tracksRecordEvent( 'wpcom_block_premium_content_stripe_connect_click' ),
 } );

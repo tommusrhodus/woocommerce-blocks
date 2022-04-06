@@ -24,7 +24,6 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	const { hasDarkControls } = useCartBlockContext();
 	const allowedBlocks = getAllowedBlocks( innerBlockAreas.FILLED_CART );
 	const defaultTemplate = [
-		[ 'woocommerce/cart-items-block', {}, [] ],
 		[ 'woocommerce/cart-totals-block', {}, [] ],
 	] as TemplateArray;
 

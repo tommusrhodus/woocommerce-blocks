@@ -14,7 +14,11 @@ export interface DelegateEventHandlerCallback {
 }
 
 export interface DelegateEventSubscriberCallback {
-	( mapping: DelegateEventHandler, event: CallbackEventType, target: EventTarget ): void;
+	(
+		mapping: DelegateEventHandler,
+		event: CallbackEventType,
+		target: EventTarget
+	): void;
 }
 
 export type DelegateEventSubscriberType = 'before' | 'after';

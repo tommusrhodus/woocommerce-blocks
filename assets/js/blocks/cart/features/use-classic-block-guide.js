@@ -51,7 +51,13 @@ const ClassicGuide = () => {
 												'The <a>block editor</a> is now the default editor for all your sites, but you can still use the Classic block, if you prefer.'
 											),
 											{
-												a: <a href={ 'https://wordpress.com/support/wordpress-editor/' } />,
+												a: (
+													<a
+														href={
+															'https://wordpress.com/support/wordpress-editor/'
+														}
+													/>
+												),
 											}
 										) }
 									</p>
@@ -90,7 +96,10 @@ const ClassicGuide = () => {
 
 const guideDismissed = globalThis.localStorage.getItem( storageKey );
 
-if ( hasQueryArg( globalThis.location.href, 'in-editor-deprecation-group' ) && ! guideDismissed ) {
+if (
+	hasQueryArg( globalThis.location.href, 'in-editor-deprecation-group' ) &&
+	! guideDismissed
+) {
 	registerPlugin( 'wpcom-classic-block-editor-nux', {
 		render: () => <ClassicGuide />,
 	} );

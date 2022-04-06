@@ -34,7 +34,9 @@ const trackInserterInlineSearchTerm = () => {
 	 * Also, there is only a single popover Slot
 	 * and so only 1 popover can render at a time.
 	 */
-	const hasResults = !! document.querySelectorAll( '.components-autocomplete__popover' ).length;
+	const hasResults = !! document.querySelectorAll(
+		'.components-autocomplete__popover'
+	).length;
 	if ( hasResults ) {
 		return;
 	}
@@ -79,7 +81,9 @@ function selectorHandler() {
 		return;
 	}
 
-	const blockDOMElement = document.getElementById( `block-${ selectedBlock.clientId }` );
+	const blockDOMElement = document.getElementById(
+		`block-${ selectedBlock.clientId }`
+	);
 	// Skip if there is not a Block DOM element.
 	if ( ! blockDOMElement ) {
 		return;
@@ -93,7 +97,10 @@ function selectorHandler() {
 	const blockClassName = blockDOMElement.className;
 
 	// Skip if the block is not marked as "selected" via a class attribute.
-	if ( ! blockClassName || ! blockDOMElement.classList.contains( 'is-selected' ) ) {
+	if (
+		! blockClassName ||
+		! blockDOMElement.classList.contains( 'is-selected' )
+	) {
 		return;
 	}
 

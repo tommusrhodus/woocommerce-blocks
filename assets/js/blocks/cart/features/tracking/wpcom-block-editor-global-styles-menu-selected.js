@@ -11,7 +11,8 @@ function trackGlobalStylesMenuSelected( { path } ) {
 		return;
 	}
 
-	const buttonText = path.find( ( node ) => node.nodeName === 'BUTTON' )?.innerText;
+	const buttonText = path.find( ( node ) => node.nodeName === 'BUTTON' )
+		?.innerText;
 
 	if ( buttonText === __( 'Typography' ) ) {
 		tracksRecordEvent( 'wpcom_block_editor_global_styles_menu_selected', {

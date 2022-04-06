@@ -71,7 +71,7 @@ const defaultTemplate = ( [
 			content: __( 'New in store', 'woo-gutenberg-products-block' ),
 			level: 2,
 		},
-	]
+	],
 ].filter( Boolean ) as unknown ) as TemplateArray;
 
 export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
@@ -88,7 +88,7 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	return (
 		<div
 			{ ...blockProps }
-			hidden={ currentView !== 'woocommerce/empty-cart-block' }
+			hidden={ false}
 		>
 			<InnerBlocks
 				template={ defaultTemplate }

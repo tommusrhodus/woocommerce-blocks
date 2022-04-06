@@ -20,11 +20,6 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 		[ 'woocommerce/cart-line-items-block', {}, [] ],
 	] as TemplateArray;
 
-	useForcedLayout( {
-		clientId,
-		registeredBlocks: allowedBlocks,
-		defaultTemplate,
-	} );
 	return (
 		<Main { ...blockProps }>
 			<InnerBlocks

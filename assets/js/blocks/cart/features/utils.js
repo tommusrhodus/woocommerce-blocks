@@ -20,7 +20,11 @@ export const getEditorType = () => {
 		return 'widgets';
 	}
 
-	if ( document.querySelector( '#customize-controls .customize-widgets__sidebar-section.open' ) ) {
+	if (
+		document.querySelector(
+			'#customize-controls .customize-widgets__sidebar-section.open'
+		)
+	) {
 		return 'customize-widgets';
 	}
 
@@ -42,7 +46,10 @@ const buildPropsFromContextBlock = ( block ) => {
 		const { getActiveBlockVariation } = select( 'core/blocks' );
 
 		if ( typeof getActiveBlockVariation === 'function' ) {
-			const variation = getActiveBlockVariation( block.name, block.attributes );
+			const variation = getActiveBlockVariation(
+				block.name,
+				block.attributes
+			);
 
 			if ( variation?.name ) {
 				context = `${ context }/${ variation.name }`;
@@ -68,7 +75,9 @@ const buildPropsFromContextBlock = ( block ) => {
  * @returns {object} The block event's context properties.
  */
 export const getBlockEventContextProperties = ( rootClientId ) => {
-	const { getBlockParentsByBlockName, getBlock } = select( 'core/block-editor' );
+	const { getBlockParentsByBlockName, getBlock } = select(
+		'core/block-editor'
+	);
 
 	// If this function doesn't exist, we cannot support context tracking.
 	if ( typeof getBlockParentsByBlockName !== 'function' ) {
@@ -76,7 +85,8 @@ export const getBlockEventContextProperties = ( rootClientId ) => {
 	}
 
 	const editorType = getEditorType();
-	const defaultReturn = editorType === 'site' ? { entity_context: 'template' } : {};
+	const defaultReturn =
+		editorType === 'site' ? { entity_context: 'template' } : {};
 
 	// No root implies top level.
 	if ( ! rootClientId ) {
@@ -84,7 +94,12 @@ export const getBlockEventContextProperties = ( rootClientId ) => {
 	}
 
 	// Context controller blocks to check for.
-	const contexts = [ 'core/template-part', 'core/post-content', 'core/block', 'core/query' ];
+	const contexts = [
+		'core/template-part',
+		'core/post-content',
+		'core/block',
+		'core/query',
+	];
 
 	// Check if the root matches a context controller.
 	const rootBlock = getBlock( rootClientId );
@@ -93,7 +108,11 @@ export const getBlockEventContextProperties = ( rootClientId ) => {
 	}
 
 	// Check if the root's parents match a context controller.
-	const matchingParentIds = getBlockParentsByBlockName( rootClientId, contexts, true );
+	const matchingParentIds = getBlockParentsByBlockName(
+		rootClientId,
+		contexts,
+		true
+	);
 	if ( matchingParentIds.length ) {
 		return buildPropsFromContextBlock( getBlock( matchingParentIds[ 0 ] ) );
 	}
@@ -120,16 +139,32 @@ const compareObjects = ( newObject, oldObject, keyMap = [] ) => {
 		// If an array, key/value association may not be maintained.
 		// So we must check against the entire collection instead of by key.
 		if ( Array.isArray( newObject ) ) {
-			if ( ! some( oldObject, ( item ) => isEqual( item, newObject[ key ] ) ) ) {
-				changedItems.push( { keyMap: [ ...keyMap ], value: newObject[ key ] || 'reset' } );
+			if (
+				! some( oldObject, ( item ) =>
+					isEqual( item, newObject[ key ] )
+				)
+			) {
+				changedItems.push( {
+					keyMap: [ ...keyMap ],
+					value: newObject[ key ] || 'reset',
+				} );
 			}
 		} else if ( ! isEqual( newObject[ key ], oldObject?.[ key ] ) ) {
-			if ( typeof newObject[ key ] === 'object' && newObject[ key ] !== null ) {
+			if (
+				typeof newObject[ key ] === 'object' &&
+				newObject[ key ] !== null
+			) {
 				changedItems.push(
-					...compareObjects( newObject[ key ], oldObject?.[ key ], [ ...keyMap, key ] )
+					...compareObjects( newObject[ key ], oldObject?.[ key ], [
+						...keyMap,
+						key,
+					] )
 				);
 			} else {
-				changedItems.push( { keyMap: [ ...keyMap, key ], value: newObject[ key ] || 'reset' } );
+				changedItems.push( {
+					keyMap: [ ...keyMap, key ],
+					value: newObject[ key ] || 'reset',
+				} );
 			}
 		}
 	}
@@ -151,7 +186,10 @@ const findUpdates = ( newContent, oldContent ) => {
 	const newItems = compareObjects( newContent, oldContent );
 
 	const removedItems = compareObjects( oldContent, newContent ).filter(
-		( update ) => ! some( newItems, ( { keyMap } ) => isEqual( update.keyMap, keyMap ) )
+		( update ) =>
+			! some( newItems, ( { keyMap } ) =>
+				isEqual( update.keyMap, keyMap )
+			)
 	);
 	removedItems.forEach( ( item ) => {
 		if ( item.value?.color ) {
@@ -229,13 +267,21 @@ const buildGlobalStylesEventProps = ( keyMap, value ) => {
  * @param {Object} original	 The original global styles content object.
  * @param {string} eventName Name of the tracks event to send.
  */
-export const buildGlobalStylesContentEvents = debounce( ( updated, original, eventName ) => {
-	// Debouncing is necessary to avoid spamming tracks events with updates when sliding inputs
-	// such as a color picker are in use.
-	return findUpdates( updated, original )?.forEach( ( { keyMap, value } ) => {
-		tracksRecordEvent( eventName, buildGlobalStylesEventProps( keyMap, value ) );
-	} );
-}, 100 );
+export const buildGlobalStylesContentEvents = debounce(
+	( updated, original, eventName ) => {
+		// Debouncing is necessary to avoid spamming tracks events with updates when sliding inputs
+		// such as a color picker are in use.
+		return findUpdates( updated, original )?.forEach(
+			( { keyMap, value } ) => {
+				tracksRecordEvent(
+					eventName,
+					buildGlobalStylesEventProps( keyMap, value )
+				);
+			}
+		);
+	},
+	100
+);
 
 export const getFlattenedBlockNames = ( block ) => {
 	const blockNames = [];

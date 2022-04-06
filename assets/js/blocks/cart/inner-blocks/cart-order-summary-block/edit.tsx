@@ -41,12 +41,6 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 		[ 'woocommerce/cart-order-summary-taxes-block', {}, [] ],
 	] as TemplateArray;
 
-	useForcedLayout( {
-		clientId,
-		registeredBlocks: allowedBlocks,
-		defaultTemplate,
-	} );
-
 	return (
 		<div { ...blockProps }>
 			<InnerBlocks

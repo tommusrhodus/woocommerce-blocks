@@ -14,8 +14,12 @@ export const wpcomBlockEditorSaveClick = () => ( {
 	type: 'click',
 	handler: () => {
 		const isSiteEditor = getEditorType() === 'site';
-		const isCurrentPostPublished = select( 'core/editor' ).isCurrentPostPublished();
-		const isEditedPostBeingScheduled = select( 'core/editor' ).isEditedPostBeingScheduled();
+		const isCurrentPostPublished = select(
+			'core/editor'
+		).isCurrentPostPublished();
+		const isEditedPostBeingScheduled = select(
+			'core/editor'
+		).isEditedPostBeingScheduled();
 		let actionType = 'publish';
 
 		if ( isSiteEditor ) {

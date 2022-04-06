@@ -66,8 +66,12 @@ const EVENTS_MAPPING = [
 	wpcomBlockEditorSaveClick(),
 	wpcomBlockEditorSaveDraftClick(),
 ];
-const EVENTS_MAPPING_CAPTURE = EVENTS_MAPPING.filter( ( { capture } ) => capture );
-const EVENTS_MAPPING_NON_CAPTURE = EVENTS_MAPPING.filter( ( { capture } ) => ! capture );
+const EVENTS_MAPPING_CAPTURE = EVENTS_MAPPING.filter(
+	( { capture } ) => capture
+);
+const EVENTS_MAPPING_NON_CAPTURE = EVENTS_MAPPING.filter(
+	( { capture } ) => ! capture
+);
 
 /**
  * Checks the event for a selector which matches
@@ -98,18 +102,23 @@ const getMatchingEventTarget = ( event, targetSelector ) => {
  * @returns {void}
  */
 export default ( capture, event ) => {
-	const eventsMappingBasedOnCapture = capture ? EVENTS_MAPPING_CAPTURE : EVENTS_MAPPING_NON_CAPTURE;
-	const matchingEvents = eventsMappingBasedOnCapture.reduce( ( acc, mapping ) => {
-		const target = getMatchingEventTarget( event, mapping.selector );
+	const eventsMappingBasedOnCapture = capture
+		? EVENTS_MAPPING_CAPTURE
+		: EVENTS_MAPPING_NON_CAPTURE;
+	const matchingEvents = eventsMappingBasedOnCapture.reduce(
+		( acc, mapping ) => {
+			const target = getMatchingEventTarget( event, mapping.selector );
 
-		// Set `click` as default of mapping event type.
-		const mappingEventType = mapping.type || 'click';
+			// Set `click` as default of mapping event type.
+			const mappingEventType = mapping.type || 'click';
 
-		if ( target && event.type && event.type === mappingEventType ) {
-			acc.push( { mapping, event, target } );
-		}
-		return acc;
-	}, [] );
+			if ( target && event.type && event.type === mappingEventType ) {
+				acc.push( { mapping, event, target } );
+			}
+			return acc;
+		},
+		[]
+	);
 
 	if ( ! matchingEvents.length ) {
 		return;

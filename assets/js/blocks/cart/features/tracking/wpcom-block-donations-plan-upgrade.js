@@ -9,5 +9,6 @@ export default () => ( {
 	id: 'wpcom-block-donations-plan-upgrade',
 	selector: '.wp-block[data-type="a8c/donations"] .plan-nudge__button',
 	type: 'click',
-	handler: () => tracksRecordEvent( 'wpcom_block_donations_plan_upgrade_click' ),
+	handler: () =>
+		tracksRecordEvent( 'wpcom_block_donations_plan_upgrade_click' ),
 } );

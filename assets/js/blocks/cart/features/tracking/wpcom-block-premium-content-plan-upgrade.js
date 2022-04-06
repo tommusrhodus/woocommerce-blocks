@@ -7,7 +7,9 @@ import tracksRecordEvent from './track-record-event';
  */
 export default () => ( {
 	id: 'wpcom-block-premium-content-plan-upgrade',
-	selector: '.wp-block[data-type="premium-content/container"] .plan-nudge__button',
+	selector:
+		'.wp-block[data-type="premium-content/container"] .plan-nudge__button',
 	type: 'click',
-	handler: () => tracksRecordEvent( 'wpcom_block_premium_content_plan_upgrade_click' ),
+	handler: () =>
+		tracksRecordEvent( 'wpcom_block_premium_content_plan_upgrade_click' ),
 } );

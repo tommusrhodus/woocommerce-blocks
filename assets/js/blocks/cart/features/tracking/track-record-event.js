@@ -1,10 +1,6 @@
 import { select } from '@wordpress/data';
 import { omitBy } from 'lodash';
 
-
-
-
-
 // Adapted from the analytics lib :(
 // Because this is happening outside of the Calypso app we can't reuse the same lib
 // This means we don't have any extra props like user
@@ -28,9 +24,15 @@ export default ( eventName, eventProperties ) => {
 
 	eventProperties = eventProperties || {};
 
-	if ( process.env.NODE_ENV !== 'production' && typeof console !== 'undefined' ) {
+	if (
+		process.env.NODE_ENV !== 'production' &&
+		typeof console !== 'undefined'
+	) {
 		for ( const key in eventProperties ) {
-			if ( eventProperties[ key ] !== null && typeof eventProperties[ key ] === 'object' ) {
+			if (
+				eventProperties[ key ] !== null &&
+				typeof eventProperties[ key ] === 'object'
+			) {
 				const errorMessage =
 					`Tracks: Unable to record event "${ eventName }" because nested ` +
 					`properties are not supported by Tracks. Check '${ key }' on`;
@@ -58,12 +60,13 @@ export default ( eventName, eventProperties ) => {
 
 	// Remove properties that have an undefined value
 	// This allows a caller to easily remove properties from the recorded set by setting them to undefined
-	eventProperties = omitBy( eventProperties, ( prop ) => typeof prop === 'undefined' );
+	eventProperties = omitBy(
+		eventProperties,
+		( prop ) => typeof prop === 'undefined'
+	);
 
 	// Populate required properties.
 	eventProperties = { ...eventProperties, ...requiredProperties };
 
-
 	const record = [ 'recordEvent', eventName, eventProperties ];
-
 };
