@@ -265,9 +265,9 @@ add_filter( 'gettext', 'woocommerce_blocks_get_php_translation_from_core', 10, 3
 function sgb_external_scripts() {
 	wp_enqueue_script(
 		'forced-shim-js',
-		plugins_url( 'forced-shim.js', __FILE__ ),
+		plugins_url( 'assets/js/forced-shim.js', __FILE__ ),
 		array( 'wp-blocks', 'wp-element', 'wp-data', 'lodash' ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'forced-shim.js' )
+		filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/forced-shim.js' )
 	);
 };
 add_action( 'enqueue_block_assets', 'sgb_external_scripts' );
