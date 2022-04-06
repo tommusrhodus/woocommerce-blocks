@@ -71,14 +71,7 @@ const defaultTemplate = ( [
 			content: __( 'New in store', 'woo-gutenberg-products-block' ),
 			level: 2,
 		},
-	],
-	[
-		'woocommerce/product-new',
-		{
-			columns: 3,
-			rows: 1,
-		},
-	],
+	]
 ].filter( Boolean ) as unknown ) as TemplateArray;
 
 export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {

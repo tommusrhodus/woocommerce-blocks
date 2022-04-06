@@ -29,6 +29,7 @@ import { Icon } from '@wordpress/icons';
 /**
  * Internal dependencies
  */
+import './features/tracking';
 import './inner-blocks';
 import './editor.scss';
 import {
