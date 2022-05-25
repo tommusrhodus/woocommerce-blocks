@@ -24,6 +24,13 @@ class MiniCart extends AbstractBlock {
 	protected $block_name = 'mini-cart';
 
 	/**
+	 * Chunks build folder.
+	 *
+	 * @var string
+	 */
+	protected $chunks_folder = 'mini-cart-contents-block';
+
+	/**
 	 * Array of scripts that will be lazy loaded when interacting with the block.
 	 *
 	 * @var string[]
@@ -53,7 +60,17 @@ class MiniCart extends AbstractBlock {
 	 */
 	public function __construct( AssetApi $asset_api, AssetDataRegistry $asset_data_registry, IntegrationRegistry $integration_registry ) {
 		parent::__construct( $asset_api, $asset_data_registry, $integration_registry, $this->block_name );
+	}
 
+	/**
+	 * Initialize this block type.
+	 *
+	 * - Hook into WP lifecycle.
+	 * - Register the block with WordPress.
+	 */
+	protected function initialize() {
+		parent::initialize();
+		add_action( 'wp_loaded', array( $this, 'register_empty_cart_message_block_pattern' ) );
 	}
 
 	/**
@@ -133,6 +150,22 @@ class MiniCart extends AbstractBlock {
 			);
 		}
 
+		/**
+		 * Temporary remove the this filter so $wp_scripts->print_translations
+		 * calls won't accident print the translations scripts for the block
+		 * when inserted as a widget.
+		 *
+		 * $wp_scripts->print_translations() calls load_script_textdomain()
+		 * which calls load_script_translations() containing the below filter.
+		 *
+		 * In Customzier, woocommerce_blocks_get_i18n_data_json doesn't exist
+		 * at the time of this filter call. So we need checking for its
+		 * existence to prevent fatal error.
+		 */
+		if ( function_exists( 'woocommerce_blocks_get_i18n_data_json' ) ) {
+			remove_filter( 'pre_load_script_translations', 'woocommerce_blocks_get_i18n_data_json', 10, 4 );
+		}
+
 		$script_data = $this->asset_api->get_script_data( 'build/mini-cart-component-frontend.js' );
 
 		$num_dependencies = count( $script_data['dependencies'] );
@@ -164,6 +197,11 @@ class MiniCart extends AbstractBlock {
 			'src'     => $script_data['src'],
 			'version' => $script_data['version'],
 		);
+
+		// Re-add the filter.
+		if ( function_exists( 'woocommerce_blocks_get_i18n_data_json' ) ) {
+			add_filter( 'pre_load_script_translations', 'woocommerce_blocks_get_i18n_data_json', 10, 4 );
+		}
 
 		$this->asset_data_registry->add(
 			'mini_cart_block_frontend_dependencies',
@@ -441,5 +479,30 @@ class MiniCart extends AbstractBlock {
 	 */
 	protected function get_cart_payload() {
 		return WC()->api->get_endpoint_data( '/wc/store/cart' );
+	}
+
+	/**
+	 * Register script and style assets for the block type before it is registered.
+	 *
+	 * This registers the scripts; it does not enqueue them.
+	 */
+	protected function register_block_type_assets() {
+		parent::register_block_type_assets();
+		$chunks = $this->get_chunks_paths();
+		$this->register_chunk_translations( $chunks );
+	}
+
+	/**
+	 * Register block pattern for Empty Cart Message to make it translatable.
+	 */
+	public function register_empty_cart_message_block_pattern() {
+		register_block_pattern(
+			'woocommerce/mini-cart-empty-cart-message',
+			array(
+				'title'    => __( 'Mini Cart Empty Cart Message', 'woo-gutenberg-products-block' ),
+				'inserter' => false,
+				'content'  => '<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center"><strong>' . __( 'Your cart is currently empty!', 'woo-gutenberg-products-block' ) . '</strong></p><!-- /wp:paragraph -->',
+			)
+		);
 	}
 }
