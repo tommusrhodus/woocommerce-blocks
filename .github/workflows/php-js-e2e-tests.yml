@@ -75,8 +75,8 @@ jobs:
               if: ${{ failure() }}
               uses: actions/upload-artifact@v3
               with:
-                  name: e2e-with-gutenberg-test-report
-                  path: reports/e2e
+                  name: e2e-with-gutenberg-test-report-${{matrix.part}}
+                  path: reports/e2e-${{matrix.part}}
     JSE2ETests:
         name: JavaScript E2E Tests (latest)
         strategy:
@@ -146,5 +146,5 @@ jobs:
               if: ${{ failure() }}
               uses: actions/upload-artifact@v3
               with:
-                  name: e2e-test-report
-                  path: reports/e2e
+                  name: e2e-test-report-${{matrix.part}}
+                  path: reports/e2e-${{matrix.part}}
