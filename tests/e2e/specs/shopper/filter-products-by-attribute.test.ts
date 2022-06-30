@@ -173,7 +173,7 @@ describe( `${ block.name } Block`, () => {
 			} );
 
 			await selectBlockByName( block.slug );
-			await openBlockEditorSettings();
+			await openBlockEditorSettings( { isFSEEditor: true } );
 			const [ filterButtonToggle ] = await page.$x(
 				block.selectors.editor.filterButtonToggle
 			);

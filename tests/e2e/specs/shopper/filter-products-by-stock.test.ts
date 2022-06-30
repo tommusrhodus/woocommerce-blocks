@@ -155,7 +155,7 @@ describe( `${ block.name } Block`, () => {
 
 			await waitForCanvas();
 			await selectBlockByName( block.slug );
-			await openBlockEditorSettings();
+			await openBlockEditorSettings( { isFSEEditor: true } );
 			await page.waitForXPath(
 				block.selectors.editor.filterButtonToggle
 			);

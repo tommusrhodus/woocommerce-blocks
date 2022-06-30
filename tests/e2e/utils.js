@@ -439,10 +439,15 @@ export const createCoupon = async ( coupon ) => {
 
 /**
  * Open the block editor settings menu.
+ *
+ * @param {Object}  [root0]
+ * @param {boolean} [root0.isFSEEditor] Amount to be applied. Defaults to 5.
  */
-export const openBlockEditorSettings = async () => {
-	const buttonSelector =
-		'.edit-site-header__actions button[aria-label="Settings"]';
+
+export const openBlockEditorSettings = async ( { isFSEEditor = false } ) => {
+	const buttonSelector = isFSEEditor
+		? '.edit-site-header__actions button[aria-label="Settings"]'
+		: '.edit-post-header__settings button[aria-label="Settings"]';
 
 	const isSideBarAlreadyOpened = await page.$(
 		'.interface-interface-skeleton__sidebar'
