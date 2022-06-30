@@ -44,6 +44,7 @@ describe( 'Shopper → Checkout → Account', () => {
 		await setCheckbox( '#woocommerce_enable_guest_checkout' );
 		await clickLink( 'button[name="save"]' );
 		await visitBlockPage( `${ block.name } Block` );
+		await page.waitForNetworkIdle();
 		await openDocumentSettingsSidebar();
 		await selectBlockByName( block.slug );
 		await selectBlockByName(
