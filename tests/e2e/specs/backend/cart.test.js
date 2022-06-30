@@ -23,6 +23,7 @@ import {
 	openWidgetEditor,
 	closeModalIfExists,
 	openWidgetsEditorBlockInserter,
+	useTheme,
 } from '../../utils.js';
 
 const block = {
@@ -158,6 +159,7 @@ describe( `${ block.name } Block`, () => {
 	} );
 
 	describe( 'in widget editor', () => {
+		useTheme( 'storefront' );
 		it( "can't be inserted in a widget area", async () => {
 			await merchant.login();
 			await openWidgetEditor();
