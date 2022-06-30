@@ -449,9 +449,9 @@ export const openBlockEditorSettings = async ( { isFSEEditor = false } ) => {
 		? '.edit-site-header__actions button[aria-label="Settings"]'
 		: '.edit-post-header__settings button[aria-label="Settings"]';
 
-	const isSideBarAlreadyOpened = await page.$(
-		'.interface-interface-skeleton__sidebar'
-	);
+	const isSideBarAlreadyOpened = isFSEEditor
+		? await page.$( '.interface-interface-skeleton__sidebar' )
+		: await page.$( '.interface-complementary-area edit-post-sidebar' );
 
 	if ( isSideBarAlreadyOpened === null ) {
 		// @ts-ignore
