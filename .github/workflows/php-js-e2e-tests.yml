@@ -7,6 +7,10 @@ on:
 
 jobs:
     JSE2EWithGutenberg:
+        strategy:
+            fail-fast: false
+            matrix:
+                part: [1, 2, 3, 4]
         name: JavaScript E2E Tests (WP latest with Gutenberg plugin)
         runs-on: ubuntu-latest
         steps:
@@ -65,8 +69,8 @@ jobs:
                   chmod -R 767 ./ #needed for permissions issues
                   node ./bin/wp-env-with-gutenberg.js
                   npm run wp-env start
-                  npm run wp-env clean all
-                  npm run test:e2e
+                  npm run wp-env:config && npx cross-env JEST_PUPPETEER_CONFIG=tests/e2e/config/jest-puppeteer.config.js NODE_CONFIG_DIR=tests/e2e/config wp-scripts test-e2e --config tests/e2e/config/jest.config.js --listTests > ~/.jest-e2e-tests
+                  npx cross-env JEST_PUPPETEER_CONFIG=tests/e2e/config/jest-puppeteer.config.js NODE_CONFIG_DIR=tests/e2e/config wp-scripts test-e2e --config tests/e2e/config/jest.config.js --runTestsByPath $( awk 'NR % 4 == ${{ matrix.part }} - 1' < ~/.jest-e2e-tests )
             - name: Upload artifacts on failure
               if: ${{ failure() }}
               uses: actions/upload-artifact@v3
