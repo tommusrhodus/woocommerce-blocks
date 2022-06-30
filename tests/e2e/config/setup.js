@@ -34,8 +34,6 @@ module.exports = async ( globalConfig ) => {
 		await setupSettings();
 		const pages = await createBlockPages();
 
-		await page.setCacheEnabled( false ); // <-- this one is a game changer
-
 		/**
 		 * Promise.all will return an array of all promises resolved values.
 		 * Some functions like setupSettings and enablePaymentGateways resolve
