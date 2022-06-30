@@ -42,11 +42,11 @@ describe( 'Shopper → Checkout → Account', () => {
 		await setCheckbox( '#woocommerce_enable_guest_checkout' );
 		await clickLink( 'button[name="save"]' );
 		await visitBlockPage( `${ block.name } Block` );
-		await openBlockEditorSettings( { isFSEEditor: false } );
 		await selectBlockByName( block.slug );
 		await selectBlockByName(
 			'woocommerce/checkout-contact-information-block'
 		);
+		await openBlockEditorSettings( { isFSEEditor: false } );
 		//Enable shoppers to sign up at checkout option.
 		// eslint-disable-next-line jest/no-standalone-expect
 		await expect( page ).toClick( 'label', {
