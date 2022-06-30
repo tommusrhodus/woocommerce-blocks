@@ -16,7 +16,6 @@
 	},
 	"config": {
 		"JETPACK_AUTOLOAD_DEV": true,
-		"SCRIPT_DEBUG": false,
-		"CONCATENATE_SCRIPTS": false
+		"SCRIPT_DEBUG": false
 	}
 }
