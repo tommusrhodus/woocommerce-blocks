@@ -454,7 +454,8 @@ export const openBlockEditorSettings = async ( { isFSEEditor = false } ) => {
 	);
 
 	if ( isSideBarAlreadyOpened === null ) {
-		await page.click( buttonSelector );
+		// @ts-ignore
+		await page.$eval( buttonSelector, ( button ) => button.click() );
 	}
 };
 
