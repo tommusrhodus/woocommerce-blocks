@@ -55,6 +55,7 @@ const setMaxPrice = async () => {
 	await page.click( selectors.frontend.priceMaxAmount, {
 		clickCount: 3,
 	} );
+	await page.keyboard.press( 'Cancel' );
 	await page.keyboard.type( '1.99' );
 	await page.$eval( selectors.frontend.priceMaxAmount, ( el ) =>
 		( el as HTMLElement ).blur()
