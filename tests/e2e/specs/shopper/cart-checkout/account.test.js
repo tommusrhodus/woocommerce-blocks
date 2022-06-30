@@ -42,7 +42,7 @@ describe( 'Shopper → Checkout → Account', () => {
 		await setCheckbox( '#woocommerce_enable_guest_checkout' );
 		await clickLink( 'button[name="save"]' );
 		await visitBlockPage( `${ block.name } Block` );
-		await openBlockEditorSettings( { isFSEEditor: true } );
+		await openBlockEditorSettings( { isFSEEditor: false } );
 		await selectBlockByName( block.slug );
 		await selectBlockByName(
 			'woocommerce/checkout-contact-information-block'
