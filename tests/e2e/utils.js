@@ -464,4 +464,5 @@ export const openBlockEditorSettings = async ( { isFSEEditor = false } ) => {
  */
 export const waitForAllProductsBlockLoaded = async () => {
 	await page.waitForSelector( SELECTORS.allProductsBlock.productsList );
+	await page.waitForNetworkIdle();
 };
