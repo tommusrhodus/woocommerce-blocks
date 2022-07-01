@@ -139,7 +139,7 @@ function observeConsoleLogging() {
 beforeAll( async () => {
 	capturePageEventsForTearDown();
 	enablePageDialogAccept();
-	observeConsoleLogging();
+	// observeConsoleLogging();
 	await setupBrowser();
 	await importSampleProducts();
 } );
