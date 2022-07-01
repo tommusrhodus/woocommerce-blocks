@@ -475,4 +475,24 @@ export const shopper = {
 			page.click( 'button[name="login"]' ),
 		] );
 	},
+
+	addToCartFromShopPage: async ( productIdOrTitle ) => {
+		if ( Number.isInteger( productIdOrTitle ) ) {
+			const addToCart = `a[data-product_id="${ productIdOrTitle }"]`;
+			await page.click( addToCart );
+			await expect( page ).toMatchElement( addToCart + '.added' );
+		} else {
+			const addToCartXPath =
+				`//li[contains(@class, "type-product") and a/h2[contains(text(), "${ productIdOrTitle }")]]` +
+				'//a[contains(@class, "add_to_cart_button") and contains(@class, "ajax_add_to_cart")';
+
+			const [ addToCartButton ] = await page.$x( addToCartXPath + ']' );
+			await addToCartButton.click();
+
+			// @todo: Update to waitForXPath when available in Puppeteer api.
+			await page.waitForXPath(
+				addToCartXPath + ' and contains(@class, "added")]'
+			);
+		}
+	},
 };
