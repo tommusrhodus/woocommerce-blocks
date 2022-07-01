@@ -34,10 +34,6 @@ export const shopper = {
 			await page.goto( url, {
 				waitUntil: 'networkidle0',
 			} );
-
-			await expect( page ).toMatchElement( 'h1', {
-				text: blockName,
-			} );
 		},
 
 		goToCart: async () => {
