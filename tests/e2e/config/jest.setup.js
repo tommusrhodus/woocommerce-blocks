@@ -18,7 +18,7 @@ import { get } from 'lodash';
 import { DEFAULT_TIMEOUT } from '../utils';
 // Set the default test timeout.
 jest.setTimeout( 120000 );
-setDefaultOptions( { timeout: DEFAULT_TIMEOUT } );
+setDefaultOptions( { timeout: 120000 } );
 
 /**
  * Array of page event tuples of [ eventName, handler ].
@@ -40,8 +40,6 @@ const OBSERVED_CONSOLE_MESSAGE_TYPES = {
 async function setupBrowser() {
 	await setBrowserViewport( 'large' );
 }
-
-jest.retryTimes( 2 );
 
 /**
  * Navigates to WooCommerce's import page and imports sample products.
