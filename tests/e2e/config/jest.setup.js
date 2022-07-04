@@ -18,7 +18,7 @@ import { get } from 'lodash';
 import { DEFAULT_TIMEOUT } from '../utils';
 // Set the default test timeout.
 jest.setTimeout( 120000 );
-setDefaultOptions( { timeout: 100000 } );
+setDefaultOptions( { timeout: DEFAULT_TIMEOUT } );
 
 /**
  * Array of page event tuples of [ eventName, handler ].
