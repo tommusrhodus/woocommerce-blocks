@@ -68,7 +68,10 @@ const insertBlocks = async () => {
 const configurateFilterProductsByAttributeBlock = async (
 	pageOrCanvas: Page | Frame
 ) => {
-	await pageOrCanvas.click( selectors.editor.firstAttributeInTheList );
+	await pageOrCanvas.$eval(
+		selectors.editor.firstAttributeInTheList,
+		( el ) => ( el as HTMLElement ).click()
+	);
 	await pageOrCanvas.click( selectors.editor.doneButton );
 };
 
