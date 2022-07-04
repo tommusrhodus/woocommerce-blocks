@@ -449,13 +449,13 @@ export const openBlockEditorSettings = async ( { isFSEEditor = false } ) => {
 		? '.edit-site-header__actions button[aria-label="Settings"]'
 		: '.edit-post-header__settings button[aria-label="Settings"]';
 
-	const isSideBarAlreadyOpened = isFSEEditor
-		? await page.$( '.interface-interface-skeleton__sidebar' )
-		: await page.$( '.interface-complementary-area edit-post-sidebar' );
+	const isPressed = `${ buttonSelector }.is-pressed`;
+
+	const isSideBarAlreadyOpened = await page.waitForSelector( isPressed );
 
 	if ( isSideBarAlreadyOpened === null ) {
 		// @ts-ignore
-		await page.$eval( buttonSelector, ( button ) => button.click() );
+		await page.$eval( buttonSelector, ( el ) => el.click() );
 	}
 };
 
