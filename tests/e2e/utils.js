@@ -451,7 +451,7 @@ export const openBlockEditorSettings = async ( { isFSEEditor = false } ) => {
 
 	const isPressed = `${ buttonSelector }.is-pressed`;
 
-	const isSideBarAlreadyOpened = await page.waitForSelector( isPressed );
+	const isSideBarAlreadyOpened = await page.$( isPressed );
 
 	if ( isSideBarAlreadyOpened === null ) {
 		// @ts-ignore
