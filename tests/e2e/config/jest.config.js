@@ -3,6 +3,7 @@ module.exports = {
 	rootDir: '../../../',
 	// Automatically clear mock calls and instances between every test
 	clearMocks: true,
+	maxWorkers: 2,
 	moduleNameMapper: {
 		'@woocommerce/blocks-test-utils': '<rootDir>/tests/utils',
 	},
