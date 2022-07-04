@@ -202,6 +202,7 @@ beforeAll( async () => {
 
 afterEach( async () => {
 	await setupBrowser();
+	await page.waitForTimeout( 500 );
 } );
 
 afterAll( () => {
